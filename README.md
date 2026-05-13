@@ -10,7 +10,11 @@ Di dalam repository ini terdapat implementasi deployment server, konfigurasi lay
 
 ## 🖥️ Tugas 1 — Arsitektur DNS (VestaCP), Web, dan Database menggunakan Tailscale
 
-[![Tugas 1](https://img.youtube.com/vi/WtEJ1XXCuhk/maxresdefault.jpg)](https://youtu.be/WtEJ1XXCuhk)
+<p align="center">
+  <a href="https://youtu.be/WtEJ1XXCuhk">
+    <img src="https://img.youtube.com/vi/WtEJ1XXCuhk/hqdefault.jpg" width="400">
+  </a>
+</p>
 
 🎥 Link Video:  
 https://youtu.be/WtEJ1XXCuhk
