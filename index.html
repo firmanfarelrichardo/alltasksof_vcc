@@ -1,1003 +1,866 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zeta | Infrastruktur Digital Enterprise</title>
+    <title>Zeta IT Infrastructure | Transformasi Digital Modern</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class', // Enable class-based dark mode
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'scroll': 'scroll 35s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        scroll: {
+                            '0%': { transform: 'translateX(0)' },
+                            '100%': { transform: 'translateX(-50%)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
-        /* === VARIABEL CSS (MODERN LIGHT THEME) === */
-        :root {
-            --bg-main: #ffffff;
-            --bg-secondary: #f8fafc;
-            --bg-glass: rgba(255, 255, 255, 0.85);
-            --text-primary: #0f172a;
-            --text-secondary: #475569;
-            --accent-cyan: #4f46e5; /* Indigo untuk light mode */
-            --accent-cyan-glow: rgba(79, 70, 229, 0.3);
-            --accent-purple: #0ea5e9; /* Sky blue */
-            --border-color: #e2e8f0;
-            --font-heading: 'Plus Jakarta Sans', sans-serif;
-            --font-body: 'Plus Jakarta Sans', sans-serif;
-            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            --card-shadow: 0 10px 40px -10px rgba(0,0,0,0.08);
-        }
-
-        /* === RESET & BASE === */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
         body {
-            font-family: var(--font-body);
-            background-color: var(--bg-main);
-            color: var(--text-primary);
-            line-height: 1.6;
             overflow-x: hidden;
-            /* Pola titik ala infrastruktur tech */
-            background-image: radial-gradient(var(--border-color) 1px, transparent 1px);
-            background-size: 32px 32px;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        h1, h2, h3, h4, .logo {
-            font-family: var(--font-heading);
-            letter-spacing: -0.5px;
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-            transition: var(--transition);
-        }
-
-        ul {
-            list-style: none;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .pill {
-            display: inline-block;
-            padding: 0.5rem 1.2rem;
-            background: rgba(79, 70, 229, 0.1);
-            color: var(--accent-cyan);
-            border-radius: 100px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-bottom: 1.5rem;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.8rem;
-            margin-bottom: 1rem;
-            font-weight: 800;
-            color: var(--text-primary);
-            letter-spacing: -1px;
-        }
-
-        .section-subtitle {
-            text-align: center;
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto 4rem auto;
-            font-size: 1.15rem;
-        }
-
-        section {
-            padding: 7rem 0;
-            background: var(--bg-main);
-        }
-
-        /* === BUTTONS === */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.8rem 1.8rem;
-            border-radius: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            border: 1px solid transparent;
-            font-size: 1rem;
-        }
-
-        .btn-primary {
-            background-color: var(--text-primary);
-            color: #fff;
-            box-shadow: 0 4px 15px rgba(15, 23, 42, 0.2);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            background-color: var(--accent-cyan);
-            box-shadow: 0 8px 25px var(--accent-cyan-glow);
-        }
-
-        .btn-secondary {
-            background-color: #fff;
-            border-color: var(--border-color);
-            color: var(--text-primary);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
-        }
-
-        .btn-secondary:hover {
-            border-color: var(--text-primary);
-            transform: translateY(-3px);
-        }
-
-        /* === NAVBAR === */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1.5rem 0;
-            background: var(--bg-glass);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-            z-index: 1000;
-            transition: var(--transition);
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 800;
-            letter-spacing: -1px;
-            color: var(--text-primary);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .logo-dot {
-            width: 12px;
-            height: 12px;
-            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
-            border-radius: 50%;
-            display: inline-block;
-        }
-
-        .logo span {
-            color: var(--accent-cyan);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            font-weight: 600;
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
-
-        .nav-links a:hover {
-            color: var(--accent-cyan);
-        }
-
-        /* === HERO SECTION === */
-        .hero {
-            padding-top: 14rem;
-            padding-bottom: 8rem;
-            text-align: center;
-            position: relative;
-            background: transparent; /* Allows dot pattern to show */
-        }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(circle at center, transparent 0%, var(--bg-main) 100%);
-            z-index: -1;
-        }
-
-        .hero h1 {
-            font-size: 4.5rem;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-cyan) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p {
-            font-size: 1.25rem;
-            color: var(--text-secondary);
-            max-width: 650px;
-            margin: 0 auto 3rem auto;
-        }
-
-        .hero-btns {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            margin-bottom: 5rem;
-        }
-
-        .client-banner {
-            border-top: 1px solid var(--border-color);
-            padding-top: 3rem;
-            background: var(--bg-main);
-        }
-
-        .client-banner p {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            margin-bottom: 1.5rem;
-            font-weight: 600;
-        }
-
-        .client-logos {
-            display: flex;
-            justify-content: center;
-            gap: 4rem;
-            filter: grayscale(100%) opacity(0.4);
-            transition: var(--transition);
-        }
-        
-        .client-logos:hover {
-            filter: grayscale(0%) opacity(1);
-        }
-
-        .client-logos span {
-            font-family: var(--font-heading);
-            font-weight: 800;
-            font-size: 1.3rem;
-            letter-spacing: -0.5px;
-        }
-
-        /* === STATS SECTION === */
-        .stats {
-            background-color: transparent;
-            padding: 0 0 6rem 0;
-            margin-top: -3rem;
-            position: relative;
-            z-index: 10;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            text-align: center;
-            background: rgba(255,255,255,0.9);
-            backdrop-filter: blur(10px);
-            padding: 3rem;
-            border-radius: 24px;
-            box-shadow: var(--card-shadow);
-            border: 1px solid var(--border-color);
-        }
-
-        .stat-item { border-right: 1px solid var(--border-color); }
-        .stat-item:last-child { border-right: none; }
-
-        .stat-item h3 {
-            font-size: 3.5rem;
-            color: var(--accent-cyan);
-            margin-bottom: 0.5rem;
-            line-height: 1;
-            letter-spacing: -2px;
-        }
-
-        .stat-item p {
-            color: var(--text-secondary);
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        /* === SERVICES (BENTO GRID) === */
-        .services-section {
-            background-color: var(--bg-secondary);
-            border-top: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .bento-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-        }
-
-        .bento-card {
-            background: #fff;
-            padding: 3rem;
-            border-radius: 24px;
-            border: 1px solid var(--border-color);
-            transition: var(--transition);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .bento-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(79, 70, 229, 0.3);
-            box-shadow: 0 20px 40px -20px var(--accent-cyan-glow);
-        }
-
-        .bento-large { grid-column: span 2; background: linear-gradient(135deg, #fff, #f8fafc); }
-        .bento-small { grid-column: span 1; }
-        .bento-wide { grid-column: span 3; display: flex; align-items: center; gap: 3rem; }
-
-        .service-icon {
-            width: 64px;
-            height: 64px;
-            background: linear-gradient(135deg, var(--bg-secondary), #f0f4ff);
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            border: 1px solid var(--border-color);
+        /* Responsive Glassmorphism */
+        .glass {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
             transition: all 0.3s ease;
         }
-
-        .service-icon svg {
-            color: var(--accent-cyan);
-            stroke-width: 2.5;
+        .dark .glass {
+            background: rgba(15, 23, 42, 0.85); /* Slate 900 */
+            border-bottom: 1px solid rgba(51, 65, 85, 0.8); /* Slate 700 */
         }
 
-        .bento-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--text-primary);
+        .glass-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .dark .glass-card {
+            background: #1e293b; /* Slate 800 */
+            border: 1px solid #334155; /* Slate 700 */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
         }
 
-        .bento-card p {
-            color: var(--text-secondary);
-            font-size: 1.05rem;
+        .glass-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(37, 99, 235, 0.15), 0 10px 10px -5px rgba(37, 99, 235, 0.04);
+            border-color: #bfdbfe; /* Blue 200 */
+        }
+        .dark .glass-card:hover {
+            box-shadow: 0 20px 25px -5px rgba(6, 182, 212, 0.15), 0 10px 10px -5px rgba(6, 182, 212, 0.04);
+            border-color: #06b6d4; /* Cyan 500 */
         }
 
-        /* === PORTFOLIO SECTION === */
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
+        /* Text Gradients based on theme */
+        .text-gradient {
+            background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .dark .text-gradient {
+            background: linear-gradient(135deg, #22d3ee 0%, #2dd4bf 100%); /* Cyan 400 to Teal 400 */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .portfolio-card {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: 24px;
-            padding: 3rem;
-            transition: var(--transition);
-        }
-
-        .portfolio-card:hover {
-            background: #fff;
-            box-shadow: var(--card-shadow);
-            transform: translateY(-5px);
-        }
-
-        .portfolio-tag {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            background: rgba(14, 165, 233, 0.1);
-            color: var(--accent-purple);
-            border-radius: 100px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-
-        .portfolio-card h3 {
-            font-size: 1.6rem;
-            margin-bottom: 1rem;
-            letter-spacing: -0.5px;
-        }
-
-        .portfolio-card p {
-            color: var(--text-secondary);
-        }
-
-        /* === TEAM SECTION === */
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-        }
-
-        .team-card {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: 24px;
-            padding: 2.5rem;
-            transition: var(--transition);
-            text-align: left;
-        }
-
-        .team-card:hover {
-            transform: translateY(-5px);
-            background: #fff;
-            box-shadow: var(--card-shadow);
-        }
-
-        .team-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 20px;
-            background: linear-gradient(135deg, #f0f4ff, #fef3ff);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid var(--border-color);
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            transform: rotate(-5deg);
-            transition: var(--transition);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        }
-
-        .team-avatar svg {
-            color: var(--accent-cyan);
-            stroke-width: 2;
-        }
-
-        .team-card:hover .team-avatar {
-            transform: rotate(0deg) scale(1.05);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-        }
-
-        .team-card h3 {
-            font-size: 1.4rem;
-            margin-bottom: 0.25rem;
-        }
-
-        .team-role {
-            color: var(--accent-cyan);
-            font-weight: 600;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
-
-        .team-card p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
-
-        /* === TESTIMONIAL SECTION === */
-        .testimonial {
-            background-color: var(--bg-secondary);
-            border-top: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
-            text-align: center;
-            padding: 8rem 0;
-            position: relative;
-        }
-
-        .quote-icon {
-            font-size: 5rem;
-            color: rgba(79, 70, 229, 0.1);
+        /* Hero Canvas */
+        #hero-canvas {
             position: absolute;
-            top: 3rem;
-            left: 50%;
-            transform: translateX(-50%);
-            font-family: serif;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: auto;
+            opacity: 0.6;
         }
 
-        .testimonial-text {
-            font-family: var(--font-heading);
-            font-size: 2rem;
-            font-weight: 500;
-            max-width: 800px;
-            margin: 0 auto 2rem auto;
-            line-height: 1.4;
-            position: relative;
-            z-index: 1;
-            letter-spacing: -0.5px;
+        /* Fade Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        .testimonial-author {
-            color: var(--text-secondary);
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-        }
-
-        /* === CONTACT SECTION === */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0;
-            background: #fff;
-            border: 1px solid var(--border-color);
-            border-radius: 32px;
-            overflow: hidden;
-            box-shadow: var(--card-shadow);
-        }
-
-        .contact-info {
-            padding: 4rem;
-            background: var(--text-primary);
-            color: #fff;
-            position: relative;
-        }
-
-        .contact-info::after {
-            content: '';
-            position: absolute;
-            bottom: -50px; right: -50px;
-            width: 250px; height: 250px;
-            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
-            border-radius: 50%;
-            opacity: 0.5;
-            filter: blur(40px);
-        }
-
-        .info-item { margin-bottom: 2.5rem; position: relative; z-index: 1;}
-        .info-item h4 { color: var(--accent-purple); font-size: 0.85rem; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 1px;}
-        .info-item p { font-size: 1.1rem; font-weight: 500; color: #f8fafc; }
-
-        .contact-form { padding: 4rem; }
-        .form-group { margin-bottom: 1.5rem; }
-        .form-group label { display: block; margin-bottom: 0.5rem; color: var(--text-primary); font-size: 0.9rem; font-weight: 600;}
-        .form-control {
-            width: 100%; padding: 1rem; background: var(--bg-secondary); border: 1px solid var(--border-color);
-            border-radius: 12px; color: var(--text-primary); font-family: var(--font-body); transition: var(--transition);
-        }
-        .form-control:focus { outline: none; border-color: var(--accent-cyan); box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1); background: #fff;}
-        textarea.form-control { resize: vertical; min-height: 120px; }
-
-        /* === FOOTER === */
-        footer { padding: 3rem 0; text-align: center; border-top: 1px solid var(--border-color); background: #fff;}
-        .footer-content { display: flex; justify-content: space-between; align-items: center; color: var(--text-secondary); font-size: 0.9rem; font-weight: 500;}
-        .footer-links { display: flex; gap: 1.5rem; }
-        .footer-links a:hover { color: var(--accent-cyan); }
-
-        /* === JS ANIMATION CLASSES === */
-        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-
-        /* Menu Toggle for Mobile */
-        .menu-toggle { display: none; flex-direction: column; cursor: pointer; gap: 5px; z-index: 1001; }
-        .menu-toggle .bar { width: 25px; height: 3px; background-color: var(--text-primary); transition: var(--transition); border-radius: 3px; }
-
-        /* === RESPONSIVE DESIGN === */
-        @media (max-width: 992px) {
-            .hero h1 { font-size: 3.5rem; }
-            .bento-large, .bento-small, .bento-wide { grid-column: span 3; }
-            .bento-wide { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
-            .stats-grid { grid-template-columns: 1fr; gap: 2rem; padding: 2rem; }
-            .stat-item { border-right: none; border-bottom: 1px solid var(--border-color); padding-bottom: 1.5rem; }
-            .stat-item:last-child { border-bottom: none; padding-bottom: 0; }
-            .team-grid, .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
-            .contact-grid { grid-template-columns: 1fr; }
-        }
-
-        @media (max-width: 768px) {
-            .menu-toggle { display: flex; }
-            .nav-links { 
-                position: absolute; top: 100%; left: -100%; width: 100%; flex-direction: column;
-                background: #fff; padding: 2rem 0; text-align: center; border-bottom: 1px solid var(--border-color);
-                transition: var(--transition); box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-            }
-            .nav-links.active { left: 0; }
-            .nav-links a { display: block; padding: 1rem; }
-            .hero { padding-top: 10rem; padding-bottom: 4rem; }
-            .hero h1 { font-size: 2.8rem; }
-            .hero-btns { flex-direction: column; }
-            .client-logos { flex-wrap: wrap; gap: 1.5rem; }
-            .team-grid, .portfolio-grid { grid-template-columns: 1fr; }
-            .contact-info, .contact-form { padding: 2rem; }
-            .footer-content { flex-direction: column; gap: 1rem; }
-        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f8fafc; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        .dark ::-webkit-scrollbar-track { background: #0f172a; }
+        .dark ::-webkit-scrollbar-thumb { background: #334155; }
+        .dark ::-webkit-scrollbar-thumb:hover { background: #475569; }
     </style>
+    
+    <script>
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
 </head>
-<body>
+<body class="antialiased bg-white text-slate-900 dark:bg-slate-900 dark:text-slate-50 selection:bg-blue-600 dark:selection:bg-cyan-500 selection:text-white transition-colors duration-300">
 
-    <!-- NAVBAR -->
-    <nav id="navbar">
-        <div class="container nav-container">
-            <a href="#" class="logo"><span class="logo-dot"></span> ZETA</a>
-            <ul class="nav-links" id="nav-links">
-                <li><a href="#home">Beranda</a></li>
-                <li><a href="#services">Layanan</a></li>
-                <li><a href="#portfolio">Portofolio</a></li>
-                <li><a href="#team">Tim</a></li>
-            </ul>
-            <a href="#contact" class="btn btn-primary" style="padding: 0.5rem 1rem;">Client Portal</a>
-            
-            <!-- Hamburger Icon untuk Mobile -->
-            <div class="menu-toggle" id="mobile-menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
+    <nav class="fixed w-full z-50 transition-all duration-300 glass" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center cursor-pointer">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-900 to-blue-600 dark:from-cyan-500 dark:to-teal-500 flex items-center justify-center mr-3 shadow-md">
+                        <i class="ph ph-hexagon-fill text-2xl text-white"></i>
+                    </div>
+                    <span class="font-extrabold text-2xl tracking-tight text-slate-900 dark:text-white">ZETA<span class="text-blue-600 dark:text-cyan-400">.</span></span>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#layanan" class="text-sm font-semibold text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-cyan-400 transition-colors">Layanan</a>
+                    <a href="#tim" class="text-sm font-semibold text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-cyan-400 transition-colors">Tim Kami</a>
+                    <a href="#mengapa-kami" class="text-sm font-semibold text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-cyan-400 transition-colors">Mengapa Zeta</a>
+                    <a href="#kontak" class="px-6 py-2.5 rounded-full bg-slate-900 text-white dark:bg-cyan-500 dark:text-slate-900 font-bold text-sm shadow-md hover:shadow-lg hover:shadow-blue-500/30 dark:hover:shadow-cyan-500/30 transition-all transform hover:-translate-y-0.5">
+                        Konsultasi Gratis
+                    </a>
+                    
+                    <!-- Theme Toggle Button Desktop -->
+                    <button id="theme-toggle-desktop" class="w-10 h-10 rounded-full flex items-center justify-center bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700 transition-colors focus:outline-none">
+                        <i id="theme-icon-desktop" class="ph ph-moon text-xl"></i>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu & Toggle Buttons -->
+                <div class="md:hidden flex items-center space-x-4">
+                    <button id="theme-toggle-mobile" class="w-10 h-10 rounded-full flex items-center justify-center bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300 transition-colors focus:outline-none">
+                        <i id="theme-icon-mobile" class="ph ph-moon text-xl"></i>
+                    </button>
+                    <button id="mobile-menu-btn" class="text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-cyan-400 focus:outline-none">
+                        <i class="ph ph-list text-3xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 absolute w-full shadow-lg">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a href="#layanan" class="block px-3 py-2 text-base font-medium text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-cyan-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-md">Layanan</a>
+                <a href="#tim" class="block px-3 py-2 text-base font-medium text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-cyan-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-md">Tim Kami</a>
+                <a href="#mengapa-kami" class="block px-3 py-2 text-base font-medium text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-cyan-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-md">Mengapa Zeta</a>
+                <a href="#kontak" class="block px-3 py-3 mt-4 text-center rounded-lg bg-slate-900 text-white dark:bg-cyan-500 dark:text-slate-900 font-bold shadow-md">Konsultasi Gratis</a>
             </div>
         </div>
     </nav>
 
-    <!-- HERO SECTION -->
-    <section id="home" class="hero container reveal">
-        <span class="pill">Generasi Baru Infrastruktur Digital</span>
-        <h1>Kinerja Maksimal.<br>Tanpa Kompromi.</h1>
-        <p>Arsitektur server, jaringan Anycast, dan basis data terdistribusi yang dirancang untuk stabilitas tingkat enterprise dan kecepatan instan.</p>
-        <div class="hero-btns">
-            <a href="#contact" class="btn btn-primary">Mulai Migrasi Server</a>
-            <a href="#services" class="btn btn-secondary">Pelajari Arsitektur</a>
+    <section id="beranda" class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        <canvas id="hero-canvas"></canvas>
+        
+        <!-- Depth Gradient -->
+        <div class="absolute inset-0 bg-gradient-to-b from-blue-50/50 via-white/80 to-white dark:from-slate-900/50 dark:via-slate-900/80 dark:to-slate-900 z-10 pointer-events-none transition-colors duration-300"></div>
+
+        <!-- Floating Elements for High-Tech feel -->
+        <div class="hidden xl:flex absolute top-40 left-10 2xl:left-20 z-20 glass-card px-4 py-3 rounded-2xl items-center gap-3 animate-float shadow-lg" style="animation-duration: 7s;">
+            <div class="w-10 h-10 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
+                <i class="ph ph-shield-check text-green-600 dark:text-green-400 text-xl"></i>
+            </div>
+            <div>
+                <p class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">Keamanan</p>
+                <p class="text-sm font-extrabold text-slate-900 dark:text-white">Enkripsi Berlapis</p>
+            </div>
+        </div>
+
+        <div class="hidden xl:flex absolute bottom-40 right-10 2xl:right-20 z-20 glass-card px-4 py-3 rounded-2xl items-center gap-3 animate-float shadow-lg" style="animation-duration: 8s; animation-delay: 1s;">
+            <div class="w-10 h-10 rounded-full bg-blue-100 dark:bg-cyan-900/30 flex items-center justify-center">
+                <i class="ph ph-activity text-blue-600 dark:text-cyan-400 text-xl"></i>
+            </div>
+            <div>
+                <p class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">Uptime Server</p>
+                <p class="text-sm font-extrabold text-slate-900 dark:text-white">99.9% Terjamin</p>
+            </div>
+        </div>
+
+        <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mt-10 md:mt-0">
+            <div class="inline-flex items-center px-4 py-2 rounded-full border border-blue-200 bg-blue-50 text-blue-600 dark:border-cyan-800/50 dark:bg-slate-800/80 dark:text-cyan-400 text-sm font-semibold mb-8 animate-float shadow-sm backdrop-blur-sm">
+                <span class="flex h-2 w-2 rounded-full bg-blue-600 dark:bg-cyan-400 mr-2 animate-pulse"></span>
+                Infrastruktur B2B Generasi Baru
+            </div>
+            
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 leading-tight text-slate-900 dark:text-white">
+                Membangun Fondasi Digital yang <br class="hidden lg:block" />
+                <span class="text-gradient">Tangguh, Aman, & Scalable.</span>
+            </h1>
+            
+            <p class="mt-4 text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto mb-10 leading-relaxed">
+                Zeta IT Infrastructure membantu instansi dan bisnis bertransformasi dari sistem tradisional yang rentan menuju ekosistem digital modern yang efisien, terpantau, dan berkeamanan tinggi.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                <a href="#kontak" class="w-full sm:w-auto px-8 py-4 rounded-full bg-slate-900 text-white dark:bg-cyan-500 dark:text-slate-900 font-bold text-base hover:bg-blue-900 dark:hover:bg-cyan-400 shadow-xl hover:shadow-2xl transition-all flex items-center justify-center group">
+                    Modernisasi Infrastruktur Anda
+                    <i class="ph-bold ph-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                </a>
+                <a href="#layanan" class="w-full sm:w-auto px-8 py-4 rounded-full bg-white text-slate-900 border border-slate-200 hover:bg-slate-50 dark:bg-transparent dark:text-white dark:border-slate-700 dark:hover:bg-slate-800 font-bold text-base transition-colors flex items-center justify-center">
+                    Pelajari Solusi Kami
+                </a>
+            </div>
         </div>
         
-        <div class="client-banner">
-            <p>Infrastruktur inti untuk perusahaan modern</p>
-            <div class="client-logos">
-                <span>TECHNOVA</span>
-                <span>NEXACORP</span>
-                <span>GLOBALNET</span>
-                <span>FINSECURE</span>
-            </div>
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center animate-bounce opacity-70 z-20">
+            <span class="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2 uppercase tracking-widest">Scroll</span>
+            <i class="ph ph-arrow-down text-xl text-slate-600 dark:text-slate-300"></i>
         </div>
     </section>
 
-    <!-- STATS SECTION -->
-    <section class="stats reveal">
-        <div class="container stats-grid">
-            <div class="stat-item">
-                <h3 class="counter" data-target="99.99" data-suffix="%">0</h3>
-                <p>Uptime Terjamin</p>
-            </div>
-            <div class="stat-item">
-                <h3 class="counter" data-target="10" data-suffix="M+">0</h3>
-                <p>Request Diproses/Hari</p>
-            </div>
-            <div class="stat-item">
-                <h3>0</h3>
-                <p>Insiden Kebocoran Data</p>
-            </div>
+    <!-- Client / Tech Stack Section (Trust Signals) -->
+    <section class="py-10 bg-white dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800 transition-colors duration-300 overflow-hidden relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6 relative z-20">
+            <p class="text-center text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2">Teknologi & Framework Yang Didukung</p>
         </div>
-    </section>
-
-    <!-- SERVICES SECTION -->
-    <section id="services" class="services-section reveal">
-        <div class="container">
-            <span class="pill">Layanan Inti</span>
-            <h2 class="section-title" style="text-align: left; margin-bottom: 3rem;">Fondasi Ekosistem Anda.</h2>
+        
+        <div class="relative w-full flex overflow-hidden group">
+            <!-- Gradient Masks for smooth fading on edges -->
+            <div class="absolute inset-y-0 left-0 w-16 md:w-32 bg-gradient-to-r from-white dark:from-slate-900 to-transparent z-10 pointer-events-none"></div>
+            <div class="absolute inset-y-0 right-0 w-16 md:w-32 bg-gradient-to-l from-white dark:from-slate-900 to-transparent z-10 pointer-events-none"></div>
             
-            <div class="bento-grid">
-                <!-- Service 1 (Large) -->
-                <div class="bento-card bento-large">
-                    <div class="service-icon">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
-                            <line x1="8" y1="21" x2="16" y2="21"/>
-                            <line x1="12" y1="17" x2="12" y2="21"/>
-                        </svg>
+            <!-- Scrolling Track (Duplicated content inside for seamless loop) -->
+            <div class="flex whitespace-nowrap animate-scroll group-hover:[animation-play-state:paused] gap-12 px-6">
+                <!-- Data Set 1 -->
+                <div class="flex items-center gap-3 text-slate-700 dark:text-slate-300 text-lg font-bold opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-pointer"><i class="ph ph-linux-logo text-3xl text-orange-400"></i> Linux Server</div>
+                <div class="flex items-center gap-3 text-slate-700 dark:text-slate-300 text-lg font-bold opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-pointer"><i class="ph ph-database text-3xl text-blue-500"></i> PostgreSQL</div>
+                <div class="flex items-center gap-3 text-slate-700 dark:text-slate-300 text-lg font-bold opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-pointer"><i class="ph ph-shield-check text-3xl text-red-500"></i> Next-Gen Firewall</div>
+                <div class="flex items-center gap-3 text-slate-700 dark:text-slate-300 text-lg font-bold opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-pointer"><i class="ph ph-cloud-network text-3xl text-cyan-500"></i> Cloud Native</div>
+                <div class="flex items-center gap-3 text-slate-700 dark:text-slate-300 text-lg font-bold opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-pointer"><i class="ph ph-package text-3xl text-blue-400"></i> Docker Container</div>
+                <div class="flex items-center gap-3 text-slate-700 dark:text-slate-300 text-lg font-bold opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-pointer"><i class="ph ph-graph text-3xl text-blue-600"></i> Kubernetes</div>
+                <div class="flex items-center gap-3 text-slate-700 dark:text-slate-300 text-lg font-bold opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-pointer"><i class="ph ph-git-merge text-3xl text-orange-500"></i> CI/CD Pipelines</div>
+                <div class="flex items-center gap-3 text-slate-700 dark:text-slate-300 text-lg font-bold opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-pointer"><i class="ph ph-hard-drives text-3xl text-slate-500"></i> Bare Metal</div>
+                
+                <!-- Data Set 2 (Duplicated for Endless Scrolling) -->
+                <div class="flex items-center gap-3 text-slate-700 dark:text-slate-300 text-lg font-bold opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-pointer"><i class="ph ph-linux-logo text-3xl text-orange-400"></i> Linux Server</div>
+                <div class="flex items-center gap-3 text-slate-700 dark:text-slate-300 text-lg font-bold opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-pointer"><i class="ph ph-database text-3xl text-blue-500"></i> PostgreSQL</div>
+                <div class="flex items-center gap-3 text-slate-700 dark:text-slate-300 text-lg font-bold opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-pointer"><i class="ph ph-shield-check text-3xl text-red-500"></i> Next-Gen Firewall</div>
+                <div class="flex items-center gap-3 text-slate-700 dark:text-slate-300 text-lg font-bold opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-pointer"><i class="ph ph-cloud-network text-3xl text-cyan-500"></i> Cloud Native</div>
+                <div class="flex items-center gap-3 text-slate-700 dark:text-slate-300 text-lg font-bold opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-pointer"><i class="ph ph-package text-3xl text-blue-400"></i> Docker Container</div>
+                <div class="flex items-center gap-3 text-slate-700 dark:text-slate-300 text-lg font-bold opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-pointer"><i class="ph ph-graph text-3xl text-blue-600"></i> Kubernetes</div>
+                <div class="flex items-center gap-3 text-slate-700 dark:text-slate-300 text-lg font-bold opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-pointer"><i class="ph ph-git-merge text-3xl text-orange-500"></i> CI/CD Pipelines</div>
+                <div class="flex items-center gap-3 text-slate-700 dark:text-slate-300 text-lg font-bold opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-pointer"><i class="ph ph-hard-drives text-3xl text-slate-500"></i> Bare Metal</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 relative bg-slate-50 dark:bg-slate-800/50 border-y border-slate-200 dark:border-slate-800 transition-colors duration-300" id="visi-misi">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-slate-900 dark:text-white">Mitra Strategis Transformasi Digital Anda</h2>
+                <div class="h-1 w-20 bg-blue-600 dark:bg-cyan-500 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="reveal">
+                    <div class="glass-card p-10 rounded-3xl relative overflow-hidden h-full flex flex-col justify-center border-t-4 border-t-blue-600 dark:border-t-cyan-500">
+                        <div class="absolute -right-10 -top-10 w-40 h-40 bg-blue-100 dark:bg-cyan-900/20 rounded-full blur-3xl"></div>
+                        <h3 class="text-2xl font-bold mb-4 text-slate-900 dark:text-white flex items-center relative z-10">
+                            <div class="w-12 h-12 rounded-full bg-blue-50 dark:bg-slate-800 text-blue-600 dark:text-cyan-400 flex items-center justify-center mr-4 border border-blue-100 dark:border-slate-700">
+                                <i class="ph ph-target text-2xl"></i>
+                            </div>
+                            Visi Kami
+                        </h3>
+                        <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-lg relative z-10">
+                            Menjadi tulang punggung teknologi terpercaya bagi instansi pemerintahan dan korporasi, mendorong adopsi teknologi mutakhir yang aman dan berkinerja tinggi.
+                        </p>
                     </div>
-                    <h3>Web Server Management</h3>
-                    <p>Konfigurasi Nginx/Apache tingkat lanjut dengan arsitektur High Availability. Server yang mampu beradaptasi dengan lonjakan trafik otomatis (Auto-Scaling) memastikan website atau aplikasi Anda tetap online di momen paling krusial.</p>
                 </div>
-                <!-- Service 2 (Small) -->
-                <div class="bento-card bento-small">
-                    <div class="service-icon">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="10"/>
-                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-                            <path d="M2 12h20"/>
-                        </svg>
+
+                <div class="space-y-6 reveal" style="transition-delay: 200ms;">
+                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4 ml-2">Misi Kami</h3>
+                    
+                    <div class="flex items-start bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow">
+                        <div class="flex-shrink-0 flex items-center justify-center w-14 h-14 rounded-xl bg-blue-50 dark:bg-cyan-900/30 text-blue-600 dark:text-cyan-400 mr-5">
+                            <i class="ph ph-rocket-launch text-3xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold text-slate-900 dark:text-white">Akselerasi Performa</h4>
+                            <p class="text-slate-600 dark:text-slate-400 mt-2 text-sm leading-relaxed">Menyediakan arsitektur server dan jaringan yang dirancang untuk kecepatan tanpa kompromi.</p>
+                        </div>
                     </div>
-                    <h3>DNS & Routing</h3>
-                    <p>Resolusi domain global super cepat. Jaringan Anycast kami merutekan pengguna ke server terdekat dan memangkas latensi.</p>
+                    
+                    <div class="flex items-start bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow">
+                        <div class="flex-shrink-0 flex items-center justify-center w-14 h-14 rounded-xl bg-indigo-50 dark:bg-teal-900/30 text-indigo-600 dark:text-teal-400 mr-5">
+                            <i class="ph ph-shield-check text-3xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold text-slate-900 dark:text-white">Keamanan Tanpa Kompromi</h4>
+                            <p class="text-slate-600 dark:text-slate-400 mt-2 text-sm leading-relaxed">Menerapkan perlindungan berlapis dan audit proaktif terhadap aset digital klien.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow">
+                        <div class="flex-shrink-0 flex items-center justify-center w-14 h-14 rounded-xl bg-sky-50 dark:bg-sky-900/30 text-sky-600 dark:text-sky-400 mr-5">
+                            <i class="ph ph-chart-line-up text-3xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold text-slate-900 dark:text-white">Eskalasi Bisnis</h4>
+                            <p class="text-slate-600 dark:text-slate-400 mt-2 text-sm leading-relaxed">Merancang infrastruktur yang dapat bertumbuh sejalan dengan skala instansi atau bisnis Anda.</p>
+                        </div>
+                    </div>
                 </div>
-                <!-- Service 3 (Wide) -->
-                <div class="bento-card bento-wide">
-                    <div class="service-icon">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/>
-                            <line x1="6" y1="6" x2="18" y2="6"/>
-                            <line x1="6" y1="12" x2="18" y2="12"/>
-                            <line x1="6" y1="18" x2="18" y2="18"/>
-                        </svg>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 relative bg-white dark:bg-slate-900 transition-colors duration-300" id="layanan">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <span class="text-blue-600 dark:text-cyan-400 font-bold tracking-wider text-sm uppercase">Core Solutions</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold mt-2 mb-4 text-slate-900 dark:text-white">Solusi Infrastruktur End-to-End</h2>
+                <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-lg">Kami menyediakan ekosistem teknologi lengkap yang dirancang khusus untuk reliabilitas dan keamanan tingkat tinggi.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                <!-- Card 1 -->
+                <div class="glass-card p-8 rounded-3xl reveal group">
+                    <div class="w-16 h-16 rounded-2xl bg-blue-50 dark:bg-cyan-900/30 flex items-center justify-center mb-6 group-hover:-translate-y-2 transition-transform duration-300 border border-blue-100 dark:border-cyan-800/50">
+                        <i class="ph ph-hard-drives text-4xl text-blue-600 dark:text-cyan-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Modernisasi & Virtualisasi Server</h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                        Optimalkan hardware Anda dengan teknologi virtualisasi (berbasis Ubuntu Server). Tekan biaya pemeliharaan, mudahkan backup, dan maksimalkan kinerja.
+                    </p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass-card p-8 rounded-3xl reveal group" style="transition-delay: 100ms;">
+                    <div class="w-16 h-16 rounded-2xl bg-indigo-50 dark:bg-teal-900/30 flex items-center justify-center mb-6 group-hover:-translate-y-2 transition-transform duration-300 border border-indigo-100 dark:border-teal-800/50">
+                        <i class="ph ph-share-network text-4xl text-indigo-600 dark:text-teal-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Arsitektur Jaringan & Konektivitas</h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                        Desain topologi canggih dengan tunneling privat dan manajemen DNS internal terpusat. Data antar cabang dijamin rahasia, stabil, dan optimal.
+                    </p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="glass-card p-8 rounded-3xl reveal group" style="transition-delay: 200ms;">
+                    <div class="w-16 h-16 rounded-2xl bg-sky-50 dark:bg-sky-900/30 flex items-center justify-center mb-6 group-hover:-translate-y-2 transition-transform duration-300 border border-sky-100 dark:border-sky-800/50">
+                        <i class="ph ph-lock-key text-4xl text-sky-600 dark:text-sky-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Audit Keamanan & Pertahanan</h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                        Evaluasi mendalam kerentanan sistem. Kami menerapkan firewall tingkat lanjut dan traffic rules ketat untuk mencegah intrusi siber.
+                    </p>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="glass-card p-8 rounded-3xl reveal group" style="transition-delay: 300ms;">
+                    <div class="w-16 h-16 rounded-2xl bg-cyan-50 dark:bg-blue-900/30 flex items-center justify-center mb-6 group-hover:-translate-y-2 transition-transform duration-300 border border-cyan-100 dark:border-blue-800/50">
+                        <i class="ph ph-chart-polar text-4xl text-cyan-600 dark:text-blue-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Pemantauan Infrastruktur Proaktif</h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                        Pusat komando (dashboard) real-time untuk memantau kesehatan server dan jaringan. Identifikasi bottleneck sebelum menjadi masalah.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-slate-50 dark:bg-slate-800/50 relative border-y border-slate-200 dark:border-slate-800 transition-colors duration-300" id="tim">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-20 reveal">
+                <span class="text-blue-600 dark:text-cyan-400 font-bold tracking-wider text-sm uppercase">The Dream Team</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold mt-2 mb-4 text-slate-900 dark:text-white">Di Balik Infrastruktur Anda</h2>
+                <div class="h-1 w-20 bg-blue-600 dark:bg-cyan-500 mx-auto rounded-full mt-6"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-12">
+                <!-- Team Member 1 -->
+                <div class="group reveal glass-card p-4 rounded-[2rem]">
+                    <div class="relative overflow-hidden rounded-[1.5rem] aspect-[4/5] mb-6 shadow-sm bg-slate-200 dark:bg-slate-700">
+                        <!-- Darker overlay for both modes to ensure text visibility on hover -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/30 to-transparent z-10 opacity-70 group-hover:opacity-60 transition-opacity duration-300"></div>
+                        <img src="https://placehold.co/600x800/e2e8f0/1e3a8a?text=Firman+Farel" alt="Firman Farel Richardo" class="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-700 grayscale group-hover:grayscale-0">
+                        
+                        <!-- Hover Overlay Detail -->
+                        <div class="absolute inset-x-0 bottom-0 z-20 p-6 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 flex justify-center">
+                            <div class="flex space-x-3 mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
+                                <a href="#" class="w-10 h-10 rounded-full bg-white dark:bg-slate-800 text-blue-900 dark:text-cyan-400 flex items-center justify-center hover:bg-blue-600 hover:text-white dark:hover:bg-cyan-500 dark:hover:text-slate-900 transition-colors shadow-lg"><i class="ph-fill ph-linkedin-logo text-xl"></i></a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-white dark:bg-slate-800 text-blue-900 dark:text-cyan-400 flex items-center justify-center hover:bg-blue-600 hover:text-white dark:hover:bg-cyan-500 dark:hover:text-slate-900 transition-colors shadow-lg"><i class="ph-fill ph-envelope-simple text-xl"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center px-2 pb-4">
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white">Firman Farel Richardo</h3>
+                        <p class="text-blue-600 dark:text-cyan-400 font-semibold mt-1 mb-3 text-sm">DNS & Network Architecture</p>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Memastikan rute lalu lintas data yang paling efisien dan manajemen penamaan domain internal yang stabil.</p>
+                    </div>
+                </div>
+
+                <!-- Team Member 2 -->
+                <div class="group reveal glass-card p-4 rounded-[2rem]" style="transition-delay: 150ms;">
+                    <div class="relative overflow-hidden rounded-[1.5rem] aspect-[4/5] mb-6 shadow-sm bg-slate-200 dark:bg-slate-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/30 to-transparent z-10 opacity-70 group-hover:opacity-60 transition-opacity duration-300"></div>
+                        <img src="https://placehold.co/600x800/e2e8f0/1e3a8a?text=Muhammad+Farhan" alt="Muhammad Farhan" class="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-700 grayscale group-hover:grayscale-0">
+                        
+                        <div class="absolute inset-x-0 bottom-0 z-20 p-6 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 flex justify-center">
+                            <div class="flex space-x-3 mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
+                                <a href="#" class="w-10 h-10 rounded-full bg-white dark:bg-slate-800 text-blue-900 dark:text-cyan-400 flex items-center justify-center hover:bg-blue-600 hover:text-white dark:hover:bg-cyan-500 dark:hover:text-slate-900 transition-colors shadow-lg"><i class="ph-fill ph-linkedin-logo text-xl"></i></a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-white dark:bg-slate-800 text-blue-900 dark:text-cyan-400 flex items-center justify-center hover:bg-blue-600 hover:text-white dark:hover:bg-cyan-500 dark:hover:text-slate-900 transition-colors shadow-lg"><i class="ph-fill ph-envelope-simple text-xl"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center px-2 pb-4">
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white">Muhammad Farhan</h3>
+                        <p class="text-blue-600 dark:text-cyan-400 font-semibold mt-1 mb-3 text-sm">Web Server & Virtualization</p>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Ahli dalam mentransformasi server fisik menjadi ekosistem virtual yang high-performance dan scalable.</p>
+                    </div>
+                </div>
+
+                <!-- Team Member 3 -->
+                <div class="group reveal glass-card p-4 rounded-[2rem]" style="transition-delay: 300ms;">
+                    <div class="relative overflow-hidden rounded-[1.5rem] aspect-[4/5] mb-6 shadow-sm bg-slate-200 dark:bg-slate-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/30 to-transparent z-10 opacity-70 group-hover:opacity-60 transition-opacity duration-300"></div>
+                        <img src="https://placehold.co/600x800/e2e8f0/1e3a8a?text=Arza+Restu+Arjuna" alt="Arza Restu Arjuna" class="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-700 grayscale group-hover:grayscale-0">
+                        
+                        <div class="absolute inset-x-0 bottom-0 z-20 p-6 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 flex justify-center">
+                            <div class="flex space-x-3 mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
+                                <a href="#" class="w-10 h-10 rounded-full bg-white dark:bg-slate-800 text-blue-900 dark:text-cyan-400 flex items-center justify-center hover:bg-blue-600 hover:text-white dark:hover:bg-cyan-500 dark:hover:text-slate-900 transition-colors shadow-lg"><i class="ph-fill ph-linkedin-logo text-xl"></i></a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-white dark:bg-slate-800 text-blue-900 dark:text-cyan-400 flex items-center justify-center hover:bg-blue-600 hover:text-white dark:hover:bg-cyan-500 dark:hover:text-slate-900 transition-colors shadow-lg"><i class="ph-fill ph-envelope-simple text-xl"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center px-2 pb-4">
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white">Arza Restu Arjuna</h3>
+                        <p class="text-blue-600 dark:text-cyan-400 font-semibold mt-1 mb-3 text-sm">DB Infrastructure & Security</p>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Mengarsiteki penyimpanan data yang aman, terintegrasi, dan memiliki integritas tingkat tinggi.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-white dark:bg-slate-900 transition-colors duration-300" id="mengapa-kami">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-4xl font-extrabold mb-4 text-slate-900 dark:text-white">Keunggulan Zeta IT</h2>
+                <p class="text-slate-600 dark:text-slate-400 text-lg max-w-2xl mx-auto">Mengapa instansi dan bisnis terkemuka mempercayakan fondasi teknologinya pada kami?</p>
+            </div>
+
+            <div class="flex flex-col gap-8">
+                <!-- Value 1 -->
+                <div class="glass-card p-8 md:p-10 rounded-[2rem] flex flex-col md:flex-row items-center md:items-start gap-8 reveal">
+                    <div class="flex-shrink-0 w-24 h-24 rounded-3xl bg-blue-50 dark:bg-cyan-900/30 flex items-center justify-center border border-blue-100 dark:border-cyan-800/50 shadow-sm">
+                        <i class="ph ph-cpu text-5xl text-blue-600 dark:text-cyan-400"></i>
+                    </div>
+                    <div class="text-center md:text-left flex-1 mt-2">
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-3">Pendekatan Berbasis Data</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-lg leading-relaxed">Keputusan arsitektur didasarkan pada hasil audit yang mendalam dan simulasi performa presisi, bukan sekadar perkiraan. Kami mengukur sebelum membangun.</p>
+                    </div>
+                </div>
+
+                <!-- Value 2 -->
+                <div class="glass-card p-8 md:p-10 rounded-[2rem] flex flex-col md:flex-row items-center md:items-start gap-8 reveal" style="transition-delay: 100ms;">
+                    <div class="flex-shrink-0 w-24 h-24 rounded-3xl bg-indigo-50 dark:bg-teal-900/30 flex items-center justify-center border border-indigo-100 dark:border-teal-800/50 shadow-sm">
+                        <i class="ph ph-shield-star text-5xl text-indigo-600 dark:text-teal-400"></i>
+                    </div>
+                    <div class="text-center md:text-left flex-1 mt-2">
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-3">Security by Design</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-lg leading-relaxed">Keamanan adalah prioritas utama sejak kabel pertama ditarik dan server dinyalakan. Infrastruktur dirancang dengan ketahanan bawaan (inherent security) terhadap ancaman modern.</p>
+                    </div>
+                </div>
+
+                <!-- Value 3 -->
+                <div class="glass-card p-8 md:p-10 rounded-[2rem] flex flex-col md:flex-row items-center md:items-start gap-8 reveal" style="transition-delay: 200ms;">
+                    <div class="flex-shrink-0 w-24 h-24 rounded-3xl bg-sky-50 dark:bg-sky-900/30 flex items-center justify-center border border-sky-100 dark:border-sky-800/50 shadow-sm">
+                        <i class="ph ph-file-code text-5xl text-sky-600 dark:text-sky-400"></i>
+                    </div>
+                    <div class="text-center md:text-left flex-1 mt-2">
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-3">Dokumentasi Premium</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-lg leading-relaxed">Klien mendapatkan peta topologi jaringan yang jelas dan laporan monitoring yang modern, transparan, serta mudah dipahami oleh tingkat eksekutif maupun tim operasional teknis.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 relative overflow-hidden bg-slate-50 dark:bg-slate-800/50 border-t border-slate-200 dark:border-slate-800 transition-colors duration-300" id="kontak">
+        <!-- Background decorative blobs -->
+        <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-100/50 dark:bg-cyan-900/20 rounded-full blur-[100px] pointer-events-none transform translate-x-1/3 -translate-y-1/3 transition-colors duration-500"></div>
+        <div class="absolute bottom-0 left-0 w-[600px] h-[600px] bg-sky-100/50 dark:bg-teal-900/20 rounded-full blur-[100px] pointer-events-none transform -translate-x-1/3 translate-y-1/3 transition-colors duration-500"></div>
+
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="bg-white dark:bg-slate-900 p-10 md:p-16 rounded-[2.5rem] text-center shadow-[0_20px_50px_-12px_rgba(0,0,0,0.1)] border border-slate-200 dark:border-slate-700 transition-colors duration-300">
+                <div class="w-20 h-20 bg-blue-50 dark:bg-cyan-900/30 rounded-2xl flex items-center justify-center mx-auto mb-8 border border-blue-100 dark:border-cyan-800/50 shadow-inner">
+                    <i class="ph ph-paper-plane-tilt text-4xl text-blue-600 dark:text-cyan-400"></i>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-extrabold mb-6 text-slate-900 dark:text-white leading-tight">Siap Memodernisasi <br/><span class="text-gradient">IT Infrastructure</span> Anda?</h2>
+                <p class="text-xl text-slate-600 dark:text-slate-400 mb-10 max-w-2xl mx-auto">Diskusikan kebutuhan spesifik instansi atau bisnis Anda bersama tim ahli kami dan mulai transformasi hari ini.</p>
+                
+                <form class="max-w-md mx-auto space-y-5 text-left">
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-900 dark:text-slate-300 mb-2">Nama Instansi / Perusahaan</label>
+                        <input type="text" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3.5 text-slate-900 dark:text-white focus:outline-none focus:border-blue-500 dark:focus:border-cyan-400 focus:ring-2 focus:ring-blue-500/20 dark:focus:ring-cyan-500/20 transition-all shadow-sm" placeholder="Masukkan nama instansi...">
                     </div>
                     <div>
-                        <h3>Database Architecture</h3>
-                        <p>Pemrosesan data tanpa henti (Zero-Downtime). Mulai dari relasional hingga NoSQL, kami merancang kluster basis data terenkripsi end-to-end yang mengoptimalkan query mili-detik untuk aplikasi berskala besar.</p>
+                        <label class="block text-sm font-semibold text-slate-900 dark:text-slate-300 mb-2">Email Bisnis</label>
+                        <input type="email" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3.5 text-slate-900 dark:text-white focus:outline-none focus:border-blue-500 dark:focus:border-cyan-400 focus:ring-2 focus:ring-blue-500/20 dark:focus:ring-cyan-500/20 transition-all shadow-sm" placeholder="email@domain.com">
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- PORTFOLIO / CASE STUDIES -->
-    <section id="portfolio" class="portfolio reveal">
-        <div class="container">
-            <h2 class="section-title">Studi Kasus</h2>
-            <p class="section-subtitle">Bagaimana arsitektur Zeta menyelesaikan masalah infrastruktur yang kompleks di dunia nyata.</p>
-            
-            <div class="portfolio-grid">
-                <div class="portfolio-card">
-                    <span class="portfolio-tag">High Availability</span>
-                    <h3>Proyek Alpha: E-Commerce X</h3>
-                    <p>Menyelamatkan platform e-commerce dari crash berulang saat momen Flash Sale. Kami merestrukturisasi keseluruhan topologi web server dan mengimplementasikan sistem caching multi-layer yang menstabilkan beban server.</p>
-                </div>
-                <div class="portfolio-card">
-                    <span class="portfolio-tag">Data Security & Migration</span>
-                    <h3>Proyek Beta: Institusi Keuangan</h3>
-                    <p>Migrasi basis data masif untuk institusi perbankan tanpa downtime (zero downtime migration). Dilakukan dengan arsitektur jaringan tertutup (private VPC) untuk memastikan integritas dan kerahasiaan data nasabah.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- TEAM SECTION -->
-    <section id="team" class="container reveal">
-        <span class="pill" style="display:block; width:fit-content; margin: 0 auto 1.5rem auto;">Zeta Engineers</span>
-        <h2 class="section-title">Pilar Operasional Zeta</h2>
-        <p class="section-subtitle">Para engineer yang memastikan infrastruktur Anda tetap hidup dan bernapas setiap detiknya.</p>
-        
-        <div class="team-grid">
-            <!-- Member 1 -->
-            <div class="team-card">
-                <div class="team-avatar">
-                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                        <circle cx="12" cy="7" r="4"/>
-                        <rect x="3" y="12" width="18" height="8" rx="2"/>
-                        <path d="M9 16h6"/>
-                    </svg>
-                </div>
-                <div class="team-role">Server Architect</div>
-                <h3>Muhammad Farhan</h3>
-                <p>Arsitek utama di balik ketahanan server Zeta. Sangat ahli dalam optimalisasi kernel Linux, Nginx/Apache tuning, dan penerapan strategi auto-scaling yang efisien.</p>
-            </div>
-            <!-- Member 2 -->
-            <div class="team-card">
-                <div class="team-avatar">
-                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                        <path d="M12 16v-2m-2 2h4"/>
-                    </svg>
-                </div>
-                <div class="team-role">Network Security</div>
-                <h3>Firman Farel Richardo</h3>
-                <p>Mata elang yang mengawasi seluruh lalu lintas jaringan global Zeta. Berpengalaman dalam mitigasi ancaman cyber, BGP routing, dan pemeliharaan zona DNS enterprise.</p>
-            </div>
-            <!-- Member 3 -->
-            <div class="team-card">
-                <div class="team-avatar">
-                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <ellipse cx="12" cy="5" rx="9" ry="3"/>
-                        <path d="M3 5v14a9 3 0 0 0 18 0V5"/>
-                        <path d="M3 12a9 3 0 0 0 18 0"/>
-                        <circle cx="12" cy="12" r="2" fill="currentColor"/>
-                    </svg>
-                </div>
-                <div class="team-role">Database Engineer</div>
-                <h3>Arza Restu Arjuna</h3>
-                <p>Penjaga gerbang data perusahaan. Ahli dalam merancang skema relasional yang kompleks menjadi sistem yang secepat kilat menggunakan PostgreSQL dan sistem NoSQL.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- TESTIMONIAL -->
-    <section class="testimonial reveal">
-        <div class="quote-icon">"</div>
-        <div class="container">
-            <p class="testimonial-text">Zeta bukan sekadar vendor server, mereka adalah pondasi dari semua produk digital kami. Infrastruktur tak kasat mata yang mereka bangun memungkinkan tim kami tidur nyenyak di malam hari tanpa khawatir server down.</p>
-            <p class="testimonial-author">— CTO, NexaCorp Enterprise</p>
-        </div>
-    </section>
-
-    <!-- CONTACT SECTION -->
-    <section id="contact" class="container reveal">
-        <h2 class="section-title">Inisiasi Komunikasi</h2>
-        <p class="section-subtitle">Siap meningkatkan skalabilitas infrastruktur Anda? Hubungi arsitek kami sekarang.</p>
-        
-        <div class="contact-grid">
-            <div class="contact-info">
-                <div class="info-item">
-                    <h4>NOC & Support (24/7)</h4>
-                    <p>sysadmin@zeta.tech</p>
-                </div>
-                <div class="info-item">
-                    <h4>Direct Line</h4>
-                    <p>+62 800 1122 3344</p>
-                </div>
-                <div class="info-item">
-                    <h4>Headquarters</h4>
-                    <p>Cyber Tower, Lantai 42<br>SCBD, Jakarta Selatan<br>Indonesia 12190</p>
-                </div>
-            </div>
-
-            <div class="contact-form">
-                <form action="#" method="POST">
-                    <div class="form-group">
-                        <label for="name">Nama Lengkap</label>
-                        <input type="text" id="name" class="form-control" placeholder="John Doe" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email Perusahaan</label>
-                        <input type="email" id="email" class="form-control" placeholder="john@company.com" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="service">Fokus Kebutuhan</label>
-                        <select id="service" class="form-control">
-                            <option value="server">Web Server Management</option>
-                            <option value="dns">DNS & Networking</option>
-                            <option value="database">Database Architecture</option>
-                            <option value="all">Infrastruktur Penuh (Full Stack)</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Deskripsi Proyek</label>
-                        <textarea id="message" class="form-control" placeholder="Jelaskan skala lalu lintas dan kendala saat ini..." required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary" style="width: 100%;">Kirim Permintaan</button>
+                    <button type="button" class="w-full mt-6 bg-slate-900 text-white dark:bg-cyan-500 dark:text-slate-900 font-bold py-4 px-8 rounded-xl hover:bg-blue-900 dark:hover:bg-cyan-400 hover:shadow-lg hover:shadow-blue-500/30 dark:hover:shadow-cyan-500/30 transition-all transform hover:-translate-y-1">
+                        Jadwalkan Konsultasi Gratis
+                    </button>
                 </form>
             </div>
-            
-            <div class="contact-info">
-                <div class="info-item">
-                    <h4>NOC & Support (24/7)</h4>
-                    <p>sysadmin@zeta.tech</p>
-                </div>
-                <div class="info-item">
-                    <h4>Direct Line</h4>
-                    <p>+62 800 1122 3344</p>
-                </div>
-                <div class="info-item">
-                    <h4>Headquarters</h4>
-                    <p>Cyber Tower, Lantai 42<br>SCBD, Jakarta Selatan<br>Indonesia 12190</p>
-                </div>
-            </div>
         </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer>
-        <div class="container footer-content">
-            <p>&copy; 2026 Zeta Tech Infrastructure. All rights reserved.</p>
-            <div class="footer-links">
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Service</a>
-            <a href="#">System Status</a>
+    <footer class="bg-white dark:bg-slate-900 pt-16 pb-8 border-t border-slate-200 dark:border-slate-800 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+                <!-- Brand Info -->
+                <div class="col-span-1 md:col-span-1">
+                    <div class="flex items-center mb-4">
+                        <i class="ph ph-hexagon-fill text-3xl text-blue-600 dark:text-cyan-400 mr-2"></i>
+                        <span class="font-extrabold text-2xl tracking-tight text-slate-900 dark:text-white">ZETA<span class="text-blue-600 dark:text-cyan-400">.</span></span>
+                    </div>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6">
+                        Menjadi tulang punggung teknologi terpercaya bagi instansi pemerintahan dan korporasi, mendorong adopsi teknologi mutakhir yang aman dan berkinerja tinggi.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-slate-500 dark:text-slate-400 hover:bg-blue-600 hover:text-white dark:hover:bg-cyan-500 dark:hover:text-slate-900 transition-all shadow-sm"><i class="ph-fill ph-linkedin-logo text-xl"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-slate-500 dark:text-slate-400 hover:bg-blue-600 hover:text-white dark:hover:bg-cyan-500 dark:hover:text-slate-900 transition-all shadow-sm"><i class="ph-fill ph-envelope-simple text-xl"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-slate-500 dark:text-slate-400 hover:bg-blue-600 hover:text-white dark:hover:bg-cyan-500 dark:hover:text-slate-900 transition-all shadow-sm"><i class="ph-fill ph-github-logo text-xl"></i></a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="col-span-1 md:col-span-1">
+                    <h4 class="text-slate-900 dark:text-white font-bold mb-4 uppercase tracking-wider text-sm">Pintasan</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#layanan" class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-cyan-400 text-sm transition-colors">Solusi Infrastruktur</a></li>
+                        <li><a href="#tim" class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-cyan-400 text-sm transition-colors">Tim Kami</a></li>
+                        <li><a href="#mengapa-kami" class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-cyan-400 text-sm transition-colors">Keunggulan Zeta</a></li>
+                        <li><a href="#kontak" class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-cyan-400 text-sm transition-colors">Hubungi Kami</a></li>
+                    </ul>
+                </div>
+
+                <!-- DNS / Resource Info -->
+                <div class="col-span-1 md:col-span-1 bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-700">
+                    <h4 class="text-slate-900 dark:text-white font-bold mb-4 uppercase tracking-wider text-sm flex items-center">
+                        <i class="ph ph-hard-drives text-blue-600 dark:text-cyan-400 mr-2 text-lg"></i> Data Center & DNS
+                    </h4>
+                    <ul class="space-y-3 font-mono text-xs">
+                        <li class="flex justify-between items-center border-b border-slate-200 dark:border-slate-700 pb-2">
+                            <span class="text-slate-500 dark:text-slate-400">Primary Domain</span>
+                            <span class="text-slate-900 dark:text-slate-200 font-bold bg-white dark:bg-slate-900 px-2 py-1 rounded">zeta.informatika.site</span>
+                        </li>
+                        <li class="flex justify-between items-center border-b border-slate-200 dark:border-slate-700 pb-2">
+                            <span class="text-slate-500 dark:text-slate-400">Name Server 1</span>
+                            <span class="text-blue-600 dark:text-cyan-400 font-bold">ns1.zeta.informatika.site</span>
+                        </li>
+                        <li class="flex justify-between items-center border-b border-slate-200 dark:border-slate-700 pb-2">
+                            <span class="text-slate-500 dark:text-slate-400">Name Server 2</span>
+                            <span class="text-blue-600 dark:text-cyan-400 font-bold">ns2.zeta.informatika.site</span>
+                        </li>
+                        <li class="flex justify-between items-center pt-1">
+                            <span class="text-slate-500 dark:text-slate-400">Status Node</span>
+                            <span class="inline-flex items-center text-green-600 dark:text-green-400">
+                                <span class="w-1.5 h-1.5 rounded-full bg-green-500 mr-1.5 animate-pulse"></span> Online
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-slate-500 dark:text-slate-400 text-sm text-center md:text-left font-medium">
+                    Hak Cipta &copy; 2026 Zeta IT Infrastructure. All rights reserved.
+                </p>
+                <div class="flex items-center gap-2 text-xs text-slate-400 dark:text-slate-500">
+                    <i class="ph ph-shield-check"></i> Secured by Zeta Next-Gen Firewall
+                </div>
+            </div>
         </div>
-    </div>
-</footer>
+    </footer>
 
-<!-- JAVASCRIPT INTERAKTIF -->
-<script>
-    // 1. Mobile Menu Toggle (Fungsi Buka/Tutup Menu di HP)
-    const mobileMenu = document.getElementById('mobile-menu');
-    const navLinks = document.getElementById('nav-links');
-    const bars = document.querySelectorAll('.bar');
-
-    mobileMenu.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-        // Animasi ikon hamburger menjadi tanda silang (X)
-        bars[0].style.transform = navLinks.classList.contains('active') ? 'rotate(-45deg) translate(-5px, 6px)' : 'none';
-        bars[1].style.opacity = navLinks.classList.contains('active') ? '0' : '1';
-        bars[2].style.transform = navLinks.classList.contains('active') ? 'rotate(45deg) translate(-5px, -6px)' : 'none';
-    });
-
-    // Tutup menu otomatis saat link ditekan (di HP)
-    navLinks.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-            navLinks.classList.remove('active');
-            bars[0].style.transform = 'none';
-            bars[1].style.opacity = '1';
-            bars[2].style.transform = 'none';
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // 1. Mobile Menu Toggle
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
         });
-    });
 
-    // 2. Navbar Scroll Effect (Navbar mengecil dan background lebih pekat saat scroll)
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            navbar.style.background = 'rgba(255, 255, 255, 0.95)';
-            navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.05)';
-            navbar.style.padding = '1rem 0';
-        } else {
-            navbar.style.background = 'var(--bg-glass)';
-            navbar.style.boxShadow = 'none';
-            navbar.style.padding = '1.5rem 0';
-        }
-    });
-
-    // 3. Scroll Reveal Animations & Number Counter (Animasi muncul dan hitung angka)
-    const reveals = document.querySelectorAll('.reveal');
-    const counters = document.querySelectorAll('.counter');
-    let hasCounted = false;
-
-    // Intersection Observer untuk mendeteksi kapan elemen masuk ke layar
-    const revealOptions = {
-        threshold: 0.15,
-        rootMargin: "0px 0px -50px 0px"
-    };
-
-    const revealOnScroll = new IntersectionObserver(function(entries, observer) {
-        entries.forEach(entry => {
-            if (!entry.isIntersecting) {
-                return;
-            } else {
-                // Tambahkan kelas active untuk mentrigger CSS Transition
-                entry.target.classList.add('active');
-                
-                // Jika yang muncul adalah bagian Stats, jalankan hitungan angka
-                if (entry.target.classList.contains('stats') && !hasCounted) {
-                    counters.forEach(counter => {
-                        const updateCount = () => {
-                            const target = +counter.getAttribute('data-target');
-                            const suffix = counter.getAttribute('data-suffix');
-                            const count = +counter.innerText.replace(/[^0-9.]/g, '');
-                            
-                            const isFloat = target % 1 !== 0; // Cek apakah ada desimal
-                            const inc = target / 50; // Kecepatan hitungan
-
-                            if (count < target) {
-                                let nextVal = count + inc;
-                                counter.innerText = (isFloat ? nextVal.toFixed(2) : Math.ceil(nextVal)) + suffix;
-                                setTimeout(updateCount, 30);
-                            } else {
-                                counter.innerText = target + suffix;
-                            }
-                        };
-                        updateCount();
-                    });
-                    hasCounted = true; // Supaya animasi angka hanya jalan 1x
+        // 2. Scroll Animation (Intersection Observer)
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
                 }
-                // Stop memantau elemen ini karena sudah muncul
-                observer.unobserve(entry.target);
+            });
+        }, { root: null, threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // 3. Navbar Background on Scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                // Ensure correct background depending on dark mode
+                if (document.documentElement.classList.contains('dark')) {
+                    navbar.classList.add('bg-slate-900/95', 'shadow-md');
+                } else {
+                    navbar.classList.add('bg-white/95', 'shadow-md');
+                }
+                navbar.classList.remove('glass');
+            } else {
+                navbar.classList.add('glass');
+                navbar.classList.remove('bg-white/95', 'bg-slate-900/95', 'shadow-md');
             }
         });
-    }, revealOptions);
 
-    reveals.forEach(reveal => {
-        revealOnScroll.observe(reveal);
-    });
+        // 4. Dark Mode Logic
+        const themeToggleDesktop = document.getElementById('theme-toggle-desktop');
+        const themeIconDesktop = document.getElementById('theme-icon-desktop');
+        const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+        const themeIconMobile = document.getElementById('theme-icon-mobile');
 
-    // 4. Form Submission Simulation (Mencegah reload dan memberi efek tombol sukses)
-    const form = document.querySelector('form');
-    form.addEventListener('submit', (e) => {
-        e.preventDefault(); // Mencegah halaman ke-refresh
-        const btn = form.querySelector('button');
-        const originalText = btn.innerText;
-        
-        btn.innerText = 'Mengirim...';
-        btn.style.opacity = '0.7';
-        btn.style.pointerEvents = 'none'; // Cegah klik berulang
-        
-        // Simulasi proses loading (1.5 detik)
-        setTimeout(() => {
-            btn.innerText = 'Pesan Terkirim!';
-            btn.style.backgroundColor = '#10b981'; // Ubah warna ke hijau Emerald
-            btn.style.boxShadow = '0 0 20px rgba(16, 185, 129, 0.4)';
-            form.reset(); // Kosongkan isi form
+        // Function to update icon
+        function updateIcons(isDark) {
+            if (isDark) {
+                themeIconDesktop.classList.replace('ph-moon', 'ph-sun');
+                themeIconMobile.classList.replace('ph-moon', 'ph-sun');
+            } else {
+                themeIconDesktop.classList.replace('ph-sun', 'ph-moon');
+                themeIconMobile.classList.replace('ph-sun', 'ph-moon');
+            }
+        }
+
+        // Initialize Icons on load based on applied class
+        const initialIsDark = document.documentElement.classList.contains('dark');
+        updateIcons(initialIsDark);
+
+        function toggleTheme() {
+            const htmlClassList = document.documentElement.classList;
+            const isDark = htmlClassList.contains('dark');
+
+            if (isDark) {
+                htmlClassList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                updateIcons(false);
+                if(window.updateThreeJSTheme) window.updateThreeJSTheme(false);
+                
+                // Trigger navbar scroll logic update
+                window.dispatchEvent(new Event('scroll'));
+            } else {
+                htmlClassList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                updateIcons(true);
+                if(window.updateThreeJSTheme) window.updateThreeJSTheme(true);
+                
+                // Trigger navbar scroll logic update
+                window.dispatchEvent(new Event('scroll'));
+            }
+        }
+
+        themeToggleDesktop.addEventListener('click', toggleTheme);
+        themeToggleMobile.addEventListener('click', toggleTheme);
+
+        // 5. Three.js Interactive Particle Background
+        window.onload = function() {
+            initThreeJS();
+        }
+
+        function initThreeJS() {
+            const canvas = document.getElementById('hero-canvas');
+            const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
             
-            // Kembalikan tombol ke kondisi semula setelah 3 detik
-            setTimeout(() => {
-                btn.innerText = originalText;
-                btn.style.backgroundColor = ''; // Mengembalikan ke warna CSS asli
-                btn.style.boxShadow = '';
-                btn.style.opacity = '1';
-                btn.style.pointerEvents = 'auto';
-            }, 3000);
-        }, 1500);
-    });
-</script>
+            const container = document.getElementById('beranda');
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+            camera.position.z = 150;
+
+            const particlesGeometry = new THREE.BufferGeometry();
+            const particlesCount = 200; 
+            
+            const posArray = new Float32Array(particlesCount * 3);
+            const velocityArray = [];
+
+            for(let i = 0; i < particlesCount * 3; i++) {
+                posArray[i] = (Math.random() - 0.5) * 400; 
+            }
+
+            for(let i=0; i<particlesCount; i++) {
+                velocityArray.push({
+                    x: (Math.random() - 0.5) * 0.2,
+                    y: (Math.random() - 0.5) * 0.2,
+                    z: (Math.random() - 0.5) * 0.2
+                });
+            }
+
+            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+
+            // Default material configs based on current theme
+            const isCurrentlyDark = document.documentElement.classList.contains('dark');
+            
+            const particlesMaterial = new THREE.PointsMaterial({
+                size: 2,
+                color: isCurrentlyDark ? 0x06b6d4 : 0x2563eb, // Cyan / Blue
+                transparent: true,
+                opacity: 0.6,
+                blending: isCurrentlyDark ? THREE.AdditiveBlending : THREE.NormalBlending
+            });
+
+            const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+            scene.add(particlesMesh);
+
+            const lineMaterial = new THREE.LineBasicMaterial({
+                color: isCurrentlyDark ? 0x0891b2 : 0x93c5fd, // Darker Cyan / Light Blue
+                transparent: true,
+                opacity: isCurrentlyDark ? 0.4 : 0.3
+            });
+
+            // Expose function to toggle ThreeJS colors dynamically
+            window.updateThreeJSTheme = function(isDark) {
+                if (isDark) {
+                    particlesMaterial.color.setHex(0x06b6d4); // Cyan
+                    particlesMaterial.blending = THREE.AdditiveBlending;
+                    lineMaterial.color.setHex(0x0891b2); // Darker Cyan
+                    lineMaterial.opacity = 0.4;
+                } else {
+                    particlesMaterial.color.setHex(0x2563eb); // Blue
+                    particlesMaterial.blending = THREE.NormalBlending;
+                    lineMaterial.color.setHex(0x93c5fd); // Light Blue
+                    lineMaterial.opacity = 0.3;
+                }
+                particlesMaterial.needsUpdate = true;
+                lineMaterial.needsUpdate = true;
+            };
+
+            let mouseX = 0;
+            let mouseY = 0;
+            const windowHalfX = window.innerWidth / 2;
+            const windowHalfY = window.innerHeight / 2;
+
+            document.addEventListener('mousemove', (event) => {
+                mouseX = (event.clientX - windowHalfX);
+                mouseY = (event.clientY - windowHalfY);
+            });
+
+            function animate() {
+                requestAnimationFrame(animate);
+
+                particlesMesh.rotation.y += 0.0005;
+                particlesMesh.rotation.x += 0.0002;
+
+                camera.position.x += (mouseX * 0.02 - camera.position.x) * 0.05;
+                camera.position.y += (-mouseY * 0.02 - camera.position.y) * 0.05;
+                camera.lookAt(scene.position);
+
+                const positions = particlesGeometry.attributes.position.array;
+                for(let i=0; i<particlesCount; i++) {
+                    positions[i*3] += velocityArray[i].x;
+                    positions[i*3+1] += velocityArray[i].y;
+                    positions[i*3+2] += velocityArray[i].z;
+
+                    if(positions[i*3] > 200 || positions[i*3] < -200) velocityArray[i].x *= -1;
+                    if(positions[i*3+1] > 200 || positions[i*3+1] < -200) velocityArray[i].y *= -1;
+                    if(positions[i*3+2] > 200 || positions[i*3+2] < -200) velocityArray[i].z *= -1;
+                }
+                particlesGeometry.attributes.position.needsUpdate = true;
+
+                // Clean up old lines
+                const oldLines = scene.children.filter(child => child.type === "LineSegments");
+                oldLines.forEach(line => {
+                    scene.remove(line);
+                    line.geometry.dispose();
+                });
+
+                const lineGeometry = new THREE.BufferGeometry();
+                const linePositions = [];
+                
+                for (let i = 0; i < particlesCount; i++) {
+                    for (let j = i + 1; j < particlesCount; j++) {
+                        const dx = positions[i * 3] - positions[j * 3];
+                        const dy = positions[i * 3 + 1] - positions[j * 3 + 1];
+                        const dz = positions[i * 3 + 2] - positions[j * 3 + 2];
+                        const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+
+                        if (dist < 40) { 
+                            linePositions.push(
+                                positions[i * 3], positions[i * 3 + 1], positions[i * 3 + 2],
+                                positions[j * 3], positions[j * 3 + 1], positions[j * 3 + 2]
+                            );
+                        }
+                    }
+                }
+
+                if(linePositions.length > 0) {
+                    lineGeometry.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
+                    const lines = new THREE.LineSegments(lineGeometry, lineMaterial);
+                    scene.add(lines);
+                }
+
+                renderer.render(scene, camera);
+            }
+
+            animate();
+
+            window.addEventListener('resize', () => {
+                camera.aspect = container.clientWidth / container.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(container.clientWidth, container.clientHeight);
+            });
+        }
+
+        // 6. Glass Card Hover Spotlight Effect
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+    </script>
 </body>
 </html>
