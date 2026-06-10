@@ -1,0 +1,7 @@
+.env
+/vendor/
+/storage/logs/*.log
+/storage/sessions/*
+!/storage/sessions/.gitkeep
+/database/backups/*
+!/database/backups/.gitkeep
