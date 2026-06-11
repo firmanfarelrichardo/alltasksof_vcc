@@ -424,3 +424,43 @@
 
 1. Panduan ini tidak mengubah kode aplikasi.
 2. Controller, model, route, dan view tetap tidak perlu diubah untuk deploy cPanel.
+
+## 2026-06-11 - Production Domain Documentation
+
+### Changed
+
+1. Memperbarui dokumentasi cPanel agar memakai domain deploy aktual:
+   - `zeta.informatika.site`
+2. Memperbarui contoh `APP_URL` dan URL callback Midtrans di dokumentasi deployment.
+
+## 2026-06-11 - cPanel public_html Structure Documentation
+
+### Changed
+
+1. Menyesuaikan panduan deploy cPanel dengan struktur hosting aktual:
+   - `/home/zeta/public_html` sebagai web root.
+   - isi `v2.0/public/` ditempatkan di `/home/zeta/public_html`.
+   - folder internal aplikasi ditempatkan di `/home/zeta`.
+2. Menambahkan catatan backup file lama `index.php` dan `api.php` sebelum diganti.
+3. Memperjelas bahwa `.env`, `app/`, `config/`, `database/`, `routes/`, `storage/`, dan `vendor/` tidak boleh berada di `public_html`.
+
+## 2026-06-11 - cPanel Tailscale Database Option
+
+### Changed
+
+1. Menambahkan opsi penggunaan database MySQL Ubuntu Server via IP Tailscale pada panduan cPanel.
+2. Mendokumentasikan prasyarat cPanel/VPS harus bisa mengakses Tailnet sebelum memakai `DB_HOST=100.110.81.10`.
+3. Menambahkan contoh setup dedicated user `consultation_app`, firewall Ubuntu, import backup, test koneksi dari cPanel, dan konfigurasi `.env` remote database.
+
+## 2026-06-11 - Export SQL to Tailscale Ubuntu Guide
+
+### Added
+
+1. Menambahkan `docs/export-sql-to-tailscale-ubuntu-guide.md`.
+2. Menambahkan ringkasan konteks di `docs/ai-context/export-sql-to-tailscale-ubuntu-guide.md`.
+3. Mendokumentasikan proses export `mysqldump`, pengiriman file via `scp`, pembuatan database remote, import ke MySQL Ubuntu Server, verifikasi data, test koneksi aplikasi, dan cleanup file temporary.
+
+### Notes
+
+1. Panduan ini tidak menjalankan export/import secara otomatis.
+2. Panduan ini tidak mengubah `.env` atau kode aplikasi.
