@@ -464,3 +464,36 @@
 
 1. Panduan ini tidak menjalankan export/import secara otomatis.
 2. Panduan ini tidak mengubah `.env` atau kode aplikasi.
+
+## 2026-06-11 - cPanel SQL Import for zeta.informatika.site
+
+### Added
+
+1. Menambahkan file SQL siap import phpMyAdmin:
+   - `database/zeta_informatika_site_phpmyadmin_import.sql`
+2. Menambahkan panduan setup cPanel khusus domain dan database `zeta.informatika.site`:
+   - `docs/cpanel-setup-zeta-informatika-site.md`
+   - `docs/ai-context/cpanel-setup-zeta-informatika-site.md`
+3. Mendokumentasikan struktur `/home/zeta/public_html`, lokasi `.env`, import phpMyAdmin, contoh `.env`, dan catatan risiko nama database yang mengandung titik.
+
+### Notes
+
+1. File SQL tidak memakai `CREATE DATABASE` atau `USE`, sehingga harus di-import setelah database dipilih di phpMyAdmin.
+2. Kode aplikasi tidak diubah.
+
+## 2026-06-11 - phpMyAdmin SQL Encoding Fix
+
+### Fixed
+
+1. Membuat ulang `database/zeta_informatika_site_phpmyadmin_import.sql` menggunakan output langsung `mysqldump --result-file` agar tidak memakai encoding UTF-16.
+2. Memastikan file SQL dapat di-import ke database sementara lokal tanpa error.
+
+### Verified
+
+1. Byte awal file SQL sudah langsung `-- MySQL dump`, tanpa BOM UTF-16.
+2. File tidak mengandung `CREATE DATABASE` atau `USE`.
+3. Import test menghasilkan:
+   - 8 user;
+   - 3 kategori;
+   - 6 sub layanan;
+   - 3 assignment.
